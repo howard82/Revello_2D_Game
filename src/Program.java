@@ -10,6 +10,7 @@ public class Program {
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print("David wrote this.")
+		System.out.print("Jason wrote this.")
 	    System.out.print("Please enter your name? ");
 	    String name;
 		try {
