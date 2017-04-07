@@ -62,8 +62,8 @@ public class Game {
     	}
 	    
 	    try {
-	    	  File x = new File("C:\\sololearn\\test.txt");
-	    	  Scanner sc = new Scanner(x);
+	    	  File x2 = new File("C:\\sololearn\\test.txt");
+	    	  Scanner sc = new Scanner(x2);
 	    	  while(sc.hasNext()) {
 	    	    System.out.println(sc.next());
 	    	  }
