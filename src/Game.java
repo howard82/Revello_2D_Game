@@ -9,7 +9,7 @@ public class Game {
 	public Game(){
 		Integer defaultGameSize = 8;
 		
-		int[][] gameBoard;
+		int[][] gameBoard = new int[8][8];
 		for (int i = 0; i < 1; i++)
 		{
 			
