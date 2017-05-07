@@ -54,13 +54,38 @@ public class ConsoleGameView {
 	//Requires conversion of letter and number input to a point co-ordinate with top left being 0,0, limit defined by game board size. 
 	// for standard-size gameboard.
 	public static Point ConvertToXY(String validMoveInput){
-			//String validMoveInput = GetUserInput();
-			//Convert valid string input to Point type (holds X,Y coordinates)
-			System.out.println(validMoveInput + " converted to Point type");
+		//String validMoveInput = GetUserInput();
+		
+		//Convert valid string input to Point type (holds X,Y coordinates)
+		String[] XY = validMoveInput.toUpperCase().split("");
+		
+		String X = XY[0];
+		//Converts string X to integer
+		int intX = Integer.parseInt(X);
+		intX -= 1;
+	
+		String Y = XY[1];
+		//Converts string Y to char
+		char YToChar = Y.charAt(0);
+		
+		int intY = 0;
+		
+		//user selection index
+		char[] column = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
+				'P','Q','R','S','T','U','V','W','X','Y','Z'};
+		//iterates through index to find users selection
+		for (int i = 0; i < column.length; i++)
+		{
+			if (column[i] == YToChar){
+				intY = i;
+				}
 			
-			//Type of output needed from the real conversion
-			Point playerMove = new Point(4,5);
-			return playerMove;
+		}
+		System.out.println(validMoveInput + " converted to Point type");
+			
+		//Convert users input to point(x,y)
+		Point playerMove = new Point(intX,intY);
+		return playerMove;
 	}
 
 	public static String GetMoveInput() {
