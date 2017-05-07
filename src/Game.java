@@ -28,14 +28,14 @@ public class Game{
 	}
 	
 	public void MakeTwoPlayerGame(){
-		player1 = new HumanPlayer("Player1",Cell.GamePiece.Red);
-		player2 = new HumanPlayer("Player2",Cell.GamePiece.Black);
+		player1 = new HumanPlayer("Player1",Cell.GamePiece.RED);
+		player2 = new HumanPlayer("Player2",Cell.GamePiece.BLACK);
 		gameboard.initialise();
 	}
 	
 	public void MakeSinglePlayerGame(){
-		player1 = new HumanPlayer("Player1", Cell.GamePiece.Red);
-		player2 = new ComputerPlayer("Computer",Cell.GamePiece.Black);
+		player1 = new HumanPlayer("Player1", Cell.GamePiece.RED);
+		player2 = new ComputerPlayer("Computer",Cell.GamePiece.BLACK);
 		//this is not great i.e a double up of the above, 
 		//the initialise was originally done in Gameboard constructor, but may interfere with Resume/Load game
 		//may have to find a better way to do this at some point
