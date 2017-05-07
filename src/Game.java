@@ -10,6 +10,8 @@ public class Game{
 	private int gameboardSize;
 	Cell[][] tempCells;
 	int turnCounter = 0;
+	// This string is fine unless I add functionality for multiple save games, in which case it will need to append numbers to the end of the save file names
+	static String saveFileName = "RevelloSaveGame.sav";
 	
 //	// default 8x8 board constructor (not used at this point)
 //	public Game(){
@@ -86,24 +88,58 @@ public class Game{
 	}
 	
 	public boolean save(){
-		System.out.println("Game saved");
-	//Below is just stuff copied from SoloLearn, use whatever is applicable
-	// Formatter will overwrite an existing file with a blank one? used to create content and write it to files.
-//		try {
-//	    Formatter f = new Formatter("C:\\sololearn\\test.txt");
-//	    f.format("%s %s %s", "1","John", "Smith \r\n");
-//	    f.format("%s %s %s", "2","Amy", "Brown"); 
-//	    //the format %s %s %s denotes three strings that are separated with spaces.\r\n is the newline symbol in Windows.
-//	    f.close();    
-//	  } catch (Exception e) {
-//	      System.out.println("Error");
-//	  }
+
+		int[] array = new int[GetGameboardSize()];
+		int player1Score = player1.GetScore();
+		int player2Score = player2.GetScore();
+		SaveGame(turnCounter, player1Score, player2Score, array);
+		System.out.println("\nGame saved\n");
 		return true;
-	
 	}
-	
-	public static boolean Load(){
-		System.out.println("Load saved game");
+
+	public void SaveGame(int turnCounter, int player1Score, int player2Score, int[] gameBoard) {
+
+		try {
+			FileOutputStream saveFile=new FileOutputStream(saveFileName);
+			ObjectOutputStream save = new ObjectOutputStream(saveFile);
+
+			save.writeObject(turnCounter);
+			save.writeObject(player1Score);
+			save.writeObject(player2Score);
+			save.writeObject(gameBoard);
+
+			save.flush();
+			save.close();
+			}
+
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
+	}		
+
+	public static boolean Load(String saveFileName){
+		System.out.println("Loading saved game");
+		int  turnCounterFromSave = 0;
+		int player1ScoreFromSave = 0;
+		int player2ScoreFromSave = 0;
+		int[] gameBoardFromSave = null;
+		
+		try {
+			FileInputStream saveFile = new FileInputStream(saveFileName);
+			ObjectInputStream RevelloSaveGame = new ObjectInputStream(saveFile);
+
+			turnCounterFromSave = (int) RevelloSaveGame.readObject();
+			player1ScoreFromSave = (int) RevelloSaveGame.readObject();
+			player2ScoreFromSave = (int) RevelloSaveGame.readObject();
+			gameBoardFromSave = (int[]) RevelloSaveGame.readObject();
+			
+			RevelloSaveGame.close();
+		}
+
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
+		
 		return false;
 	}
 

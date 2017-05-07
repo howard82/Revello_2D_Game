@@ -45,8 +45,22 @@ public class Program {
 	}
 
 	private static void LoadGame() {
-		// TODO Auto-generated method stub
-		Menu.LoadGameMenu();
+		
+		// Retrieve the users default save directory
+		StringBuilder saveFileDirectory = new StringBuilder(System.getProperty("user.dir"));
+		// Append the save file name to the directory
+		StringBuilder saveFile = saveFileDirectory.append("\\RevelloSaveGame.sav");
+		String fullSaveFileDirectory = saveFile.toString();
+		File saveFileAsTypeFile = new File(fullSaveFileDirectory);
+		
+		// Check to see if the file exists
+		if(saveFileAsTypeFile.exists() && !saveFileAsTypeFile.isDirectory()) { 
+			Game.Load("RevelloSaveGame.sav");
+		}
+
+	    else {
+	    	System.out.println("\nYou have no saved game\n");
+	    }
 	}
 
 	private static void TwoPlayerGame() 
