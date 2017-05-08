@@ -7,7 +7,6 @@ public class Program {
 	private static Game game;
 	private static int menuOption;
 	
-	
 	//static GameController gameController = new GameController();
 	public static void main(String[] args) {
 
@@ -41,7 +40,7 @@ public class Program {
 
 	private static void SinglePlayerGame() {
 		GC.NewSinglePlayerGame(Menu.GameBoardSizeMenu());
-		System.out.println("View: No implementation available yet in game class\n");
+		System.out.println("Program: No implementation available yet in game/game controller class\n");
 	}
 
 	private static void LoadGame() {
@@ -55,13 +54,14 @@ public class Program {
 		Point moveXY = null;
 		boolean userExit = false;
 		String userInput;
-		game = GC.NewTwoPlayerGame(Menu.GameBoardSizeMenu());
+		game = GC.NewTwoPlayerGame(Menu.GameBoardSizeMenu(), "Player 1", "Player 2");
 		do{
 			ConsoleGameView.ShowGameBoard(game);
-			userInput = ConsoleGameView.GetMoveInput();
+			userInput = ConsoleGameView.GetMoveInput(GC.game.getNextPlayer());
 			if (!userInput.toUpperCase().equals("X")){
 				moveXY = ConsoleGameView.ConvertToXY(userInput);
-				GC.TakeTurn(moveXY);
+				if (!GC.enterMove(moveXY))
+					System.out.println("This was not a valid move. Please try again.");
 			}
 			else
 				userExit = GC.ExitGame();

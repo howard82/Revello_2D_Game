@@ -6,11 +6,11 @@ public class ComputerPlayer extends Player {
 		super(name, color);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public Point MakeMove(Point playerMove) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//
+//	@Override
+//	public boolean MakeMove(Point playerMove) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 
 }

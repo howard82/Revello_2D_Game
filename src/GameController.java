@@ -1,7 +1,4 @@
 import java.awt.Point;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class GameController {
 	Game game;
@@ -19,18 +16,20 @@ public class GameController {
 	}
 	
 	public Game NewSinglePlayerGame(int boardSize) {
-		System.out.println("GC creates a new game and returns it to the View");
-		game = new Game(boardSize);
-		game.MakeSinglePlayerGame();
+		System.out.println("GC creates a new Single Player game and returns it to the View");
+		game = new SinglePlayerGame(boardSize);
+		game.initialise();
+		
+		//game.MakeSinglePlayerGame();
 		return game;
 		// TODO Auto-generated method stub
 		//game.start();
 	}
 	
-	public Game NewTwoPlayerGame(int boardSize) {
-		System.out.println("GC creates a new game and returns it to the View");
-		game = new Game(boardSize);
-		game.MakeTwoPlayerGame();
+	public Game NewTwoPlayerGame(int boardSize, String player1Name, String player2Name) {
+		System.out.println("GC creates a new TwoPlayer game and returns it to the View");
+		game = new TwoPlayerGame(boardSize, player1Name, player2Name);
+		game.initialise();
 		return game;
 		// TODO Auto-generated method stub
 	}	
@@ -76,11 +75,11 @@ public class GameController {
 		return false;
 	
 	}
-
-	public void TakeTurn(Point playerMove) {
+	
+	public boolean enterMove(Point playerMove) {
 		// I'd like to see if we can tidy what happens between this and the Game.TakeTurn up, so that the player is
 		//specified here and the if else loops can be removed from the Game.TakeTurn.
-		game.TakeTurn(playerMove);
+		return game.makeMove(playerMove);
 	}
 
 

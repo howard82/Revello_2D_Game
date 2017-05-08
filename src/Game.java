@@ -2,72 +2,82 @@ import java.awt.Point;
 import java.util.Formatter;
 //import java.util.Scanner;
 
-public class Game{
-	private Player player1;
-	Player player2;
-	private GameBoard gameboard;
-	private GameLogic gameLogic;
-	private int gameboardSize;
-	Cell[][] tempCells;
-	int turnCounter = 0;
-	
-//	// default 8x8 board constructor (not used at this point)
-//	public Game(){
-//		gameboardSize = 8;
-//		Initialise();
-//	}
+public abstract class Game{
+	protected Player player1;
+	protected Player player2;
+	protected GameBoard gameboard;
+	protected GameLogic gameLogic = new GameLogic(this);
+	protected int gameboardSize;
+	//Cell[][] tempCells;
+	protected int turnCounter = 0;
 	
 	// custom size board constructor
 	public Game(int gameboardSize){
 		this.gameboardSize = gameboardSize;
 		gameboard = new GameBoard(gameboardSize);
-		gameLogic = new GameLogic();
-		tempCells = new Cell[gameboardSize][gameboardSize];
+		//tempCells = new Cell[gameboardSize][gameboardSize];
 	}
 	
-	public void MakeTwoPlayerGame(){
-		player1 = new HumanPlayer("Player1",Cell.GamePiece.Red);
-		player2 = new HumanPlayer("Player2",Cell.GamePiece.Black);
+	public void initialise(){
+		System.out.println("Default starting pieces loaded to gameboard");
 		gameboard.initialise();
 	}
 	
-	public void MakeSinglePlayerGame(){
-		player1 = new HumanPlayer("Player1", Cell.GamePiece.Red);
-		player2 = new ComputerPlayer("Computer",Cell.GamePiece.Black);
+	public boolean makeMove(Point playerMove){
+		if (gameLogic.isValidMove(getNextPlayer(), playerMove)){
+			gameLogic.ConvertPieces(getNextPlayer(), playerMove);	
+			updateScores();
+			turnCounter = turnCounter + 1;
+			return true;
+		}
+		return false;
+	}
+	
+	public abstract boolean takeTurn(Point playerMove);
+//	public void MakeTwoPlayerGame(){
+//		player1 = new HumanPlayer("Player1",Cell.GamePiece.Red);
+//		player2 = new HumanPlayer("Player2",Cell.GamePiece.Black);
+//		gameboard.initialise();
+//	}
+//	
+//	public void MakeSinglePlayerGame(){
+//		player1 = new HumanPlayer("Player1", Cell.GamePiece.Red);
+//		player2 = new ComputerPlayer("Computer",Cell.GamePiece.Black);
 		//this is not great i.e a double up of the above, 
 		//the initialise was originally done in Gameboard constructor, but may interfere with Resume/Load game
 		//may have to find a better way to do this at some point
-		gameboard.initialise();
+	//}
+//	
+//	public void playGame(){
+//		gameboard.initialise();
+//		
+//	}
+	
+	public void updateScores() {
+		// TODO Auto-generated method stub
+		int blackCount = 0;
+		int redCount = 0;
+		for (int x = 0; x<gameboard.size; x++)
+			for (int y = 0; y<gameboard.size; y++){
+				if (gameboard.GetCell(x,y).getValue() == Cell.GamePiece.BLACK)
+					blackCount = blackCount + 1;
+				else if (gameboard.GetCell(x,y).getValue() == Cell.GamePiece.RED)
+					redCount = redCount + 1;
+			}
+			System.out.println("player 1 score = " + blackCount);
+			player1.SetScore(blackCount);
+			System.out.println("player 2 score = " + redCount);
+			player2.SetScore(redCount);
 	}
 	
-	public boolean TakeTurn(Point playerMove) {
-		//would be better to make a looping array of the two players...
-		//there's probably a better way to do this...
-		//it may be better to implement from the GameController passing in the player as a variable
-		//hopefully works well enough for now
-		boolean validMove;
-		if (turnCounter % 2 == 0){
-			System.out.println("Player 1 has taken turn");
-			validMove = gameLogic.isValidMove(player1, gameboard.GetCells(), playerMove);
-		}
-		else{
-			System.out.println("Player 2 has taken turn");
-			validMove = gameLogic.isValidMove(player2, gameboard.GetCells(), playerMove);
-		}
-			
-		if (validMove){
-			if (turnCounter % 2 == 0)
-				player1.SetScore(gameLogic.CalculateScore(player1));
-			else
-				player1.SetScore(gameLogic.CalculateScore(player2));
-			
-			gameboard.Update();
-			turnCounter = turnCounter + 1;
-			System.out.println("Total turns so far: " + turnCounter);
-			return true;
-		}
-			return false;
-	}	
+	protected Player getNextPlayer(){
+		if (turnCounter % 2 == 0)
+			return player1;
+		else
+			return player2;
+	}
+	
+//	public abstract boolean nextMove(Point playerMove);
 	
 	public boolean Exit(){
 		System.out.println("Exiting Game");

@@ -30,13 +30,13 @@ public class ConsoleGameView {
 			//	Don't love the amount of levels this has to delve to
 				switch(game.GetGameBoard().GetCell(x,y).getValue())
 				{
-				case Empty:
+				case EMPTY:
 					System.out.print("   |");
 					break;
-				case Black:
+				case BLACK:
 					System.out.print(" X |");
 					break;
-				case Red:
+				case RED:
 					System.out.print(" O |");
 					break;
 				}
@@ -59,11 +59,11 @@ public class ConsoleGameView {
 			System.out.println(validMoveInput + " converted to Point type");
 			
 			//Type of output needed from the real conversion
-			Point playerMove = new Point(4,5);
+			Point playerMove = new Point(1,1);
 			return playerMove;
 	}
 
-	public static String GetMoveInput() {
+	public static String GetMoveInput(Player player) {
 		String userString = null;
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -71,7 +71,7 @@ public class ConsoleGameView {
 		do 
 		{
 			System.out.println("");
-			System.out.print("Enter move (e.g 5C): ");
+			System.out.print(player.name + " please enter move (e.g 5C): ");
 
 			try {
 				userString = reader.readLine();

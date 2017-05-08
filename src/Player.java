@@ -7,11 +7,12 @@ public abstract class Player {
 	 String name;
 	
 	public Player(String name, Cell.GamePiece color){
+		this.name = name;
 		this.color = color;
 		this.score = 2;
 	}
 	 
-	public abstract Point MakeMove(Point playerMove);
+//	public abstract Point MakeMove(Point playerMove);
 	
 	public int GetScore() {
 		return score;

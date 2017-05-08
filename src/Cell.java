@@ -1,9 +1,9 @@
 public class Cell{
-	public enum GamePiece{Black, Red, Empty};
+	public enum GamePiece{BLACK, RED, EMPTY};
  	private GamePiece value;
 	
 	public Cell(){
-		value = GamePiece.Empty;
+		value = GamePiece.EMPTY;
 	}
 	
 	public GamePiece getValue(){
@@ -11,20 +11,18 @@ public class Cell{
 	}
 	
 	public void setBlack(){
-		value = GamePiece.Black;
+		value = GamePiece.BLACK;
 	}
 	
 	public void setEmpty(){
-		value = GamePiece.Empty;
+		value = GamePiece.EMPTY;
 	}
 	
 	public void setRed(){
-		value = GamePiece.Red;
+		value = GamePiece.RED;
 	}
 	
 	public String toString(){
 		return null;
-		
 	}
-	
 }
