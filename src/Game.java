@@ -1,7 +1,5 @@
 import java.awt.Point;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Formatter;
 //import java.util.Scanner;
 
 public abstract class Game{
@@ -66,20 +64,21 @@ public abstract class Game{
 		}
 	}		
 
-	
-	
 	public static boolean Load(String saveFileName){
 		System.out.println("Loading saved game");
+		int  turnCounterFromSave = 0;
+		int player1ScoreFromSave = 0;
+		int player2ScoreFromSave = 0;
+		int[] gameBoardFromSave = null;
 		
 		try {
 			FileInputStream saveFile = new FileInputStream(saveFileName);
 			ObjectInputStream RevelloSaveGame = new ObjectInputStream(saveFile);
 
-			int turnCounterFromSave = (int) RevelloSaveGame.readObject();
-			int player1ScoreFromSave = (int) RevelloSaveGame.readObject();
-			int player2ScoreFromSave = (int) RevelloSaveGame.readObject();
-			int[] gameBoardFromSave = (int[]) RevelloSaveGame.readObject();
-			
+			turnCounterFromSave = (int) RevelloSaveGame.readObject();
+			player1ScoreFromSave = (int) RevelloSaveGame.readObject();
+			player2ScoreFromSave = (int) RevelloSaveGame.readObject();
+			gameBoardFromSave = (int[]) RevelloSaveGame.readObject();
 			RevelloSaveGame.close();
 		}
 

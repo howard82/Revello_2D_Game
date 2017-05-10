@@ -10,7 +10,7 @@ public class SinglePlayerGame extends Game {
 		players[1] = new ComputerPlayer("Computer",Cell.GamePiece.BLACK);
 		GetGameBoard().initialise();
 	}
-
+ 
 	@Override
 	public boolean takeTurn(Point playerMove){
 		Player player =  getCurrentPlayer();

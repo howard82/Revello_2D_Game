@@ -11,7 +11,7 @@ public class TwoPlayerGame extends Game {
 		players[1] = new HumanPlayer(player2Name,Cell.GamePiece.BLACK);
 		GetGameBoard().initialise();
 	}
-	
+	 
 	// for loading an existing game
 	public TwoPlayerGame(int gameBoardSize, String player1Name, String player2Name, int player1Score, int player2Score) {
 		super(gameBoardSize);

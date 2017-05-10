@@ -7,12 +7,12 @@ public class HumanPlayer extends Player{
 	public HumanPlayer(String name, Cell.GamePiece color) {
 		super(name, color);
 	}
-	
+	 
 	// for loading existing game
 	public HumanPlayer(String name, Cell.GamePiece color, int playerScore) {
 		super(name,color,playerScore);
 	}
-	
+	 
 	@Override
 	public Point TakeTurn(Point playerMove) {		
 		//this.playerMove = playerMove;

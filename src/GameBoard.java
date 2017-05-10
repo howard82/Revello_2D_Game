@@ -35,7 +35,7 @@ public class GameBoard {
 	public int GetSize(){
 		return size;
 	}
-	
+	 
 	public Cell[][] GetCells(){
 		return gameBoard;
 	}

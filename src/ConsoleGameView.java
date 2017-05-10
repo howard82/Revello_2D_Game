@@ -2,7 +2,6 @@ import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 //import java.util.Scanner;
 import java.util.ListIterator;
 
@@ -89,7 +88,6 @@ public class ConsoleGameView {
 			
 		}
 		System.out.println(validMoveInput + " converted to Point type");
-			
 
 		//Convert users input to point(x,y)
 		Point playerMove = new Point(intX,intY);

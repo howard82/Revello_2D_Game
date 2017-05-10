@@ -159,23 +159,4 @@ public class GameLogic
     	System.out.println("movesRemaining = " + movesLeftArray.size());
     	return movesLeftArray;
     }
-
-    
-//    public int CalculateScore(Player player)
-//    {
-//        Cell.GamePiece pColor = player.GetColor();
-//        System.out.println("returning player score");
-//        int score = 0;
-//        for (int x = 0; x < game.gameboardSize; x++)
-//        {
-//            for (int y = 0; y < game.gameboardSize; y++)
-//            {
-//                if (game.GetGameBoard().GetCell(x, y).getValue() == pColor)
-//                {
-//                    score++;
-//                }
-//            }
-//        }
-//        return score;
-//    }
 }

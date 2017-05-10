@@ -28,7 +28,7 @@ public class GameController {
 		//return game;
 		// TODO Auto-generated method stub
 	}
-	
+	 
 	public void loadNewGame(){
 		game.GetGameBoard().initialise();
 	}
