@@ -1,7 +1,9 @@
+import java.awt.Point;
 
 public class GameBoard {
 	Cell[][] gameBoard;
-	int size;
+	private int size;
+	private int movesRemaining = 1; //requires getter and setter will be set by gameLogic
 	
 	GameBoard(int gameBoardSize){
 		this.size = gameBoardSize;
@@ -45,5 +47,14 @@ public class GameBoard {
 	public void Update() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	protected void setGameBoardCellColor(Cell.GamePiece gamePiece, Point cell){
+    	GetCells()[cell.x][cell.y].setColor(gamePiece);
+    }
+
+	public void setMovesRemaining(int movesRemaining) {
+		// TODO Auto-generated method stub
+		this.movesRemaining = movesRemaining;
 	}
 }

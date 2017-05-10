@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class GameController {
 	Game game;
@@ -15,32 +16,64 @@ public class GameController {
       return instance;
 	}
 	
-	public Game NewSinglePlayerGame(int boardSize) {
-		System.out.println("GC creates a new Single Player game and returns it to the View");
+	public void newSinglePlayerGame(int boardSize) {
+		System.out.println("GC creates a new Single Player game");
 		game = new SinglePlayerGame(boardSize);
-		game.initialise();
-		
-		//game.MakeSinglePlayerGame();
-		return game;
-		// TODO Auto-generated method stub
-		//game.start();
+		//return game;
 	}
 	
-	public Game NewTwoPlayerGame(int boardSize, String player1Name, String player2Name) {
-		System.out.println("GC creates a new TwoPlayer game and returns it to the View");
+	public void newTwoPlayerGame(int boardSize, String player1Name, String player2Name) {
+		System.out.println("GC creates a new TwoPlayer game");
 		game = new TwoPlayerGame(boardSize, player1Name, player2Name);
-		game.initialise();
-		return game;
+		//return game;
 		// TODO Auto-generated method stub
-	}	
+	}
+	
+	public void loadNewGame(){
+		game.GetGameBoard().initialise();
+	}
+	
+	public Player getNextPlayer(){
+		return game.getCurrentPlayer();
+	}
+	
+	public Cell[][] getGameBoardCells(){
+		return game.GetGameBoard().GetCells();
+	}
+	
+	public Cell getGameBoardCell(int x, int y){
+		return game.GetGameBoard().GetCell(x,y);
+	}
+	
+	public int getGameBoardSize(){
+		return game.GetGameBoard().GetSize();
+	}
 	
 	public boolean ExitGame(){
-		System.out.println("GC calls Game Over, Save (if game not finished) and Exit methods in game class");
+		System.out.println("User has hit X to Exit. Save (if game not finished) and Exit methods in game class");
 		//implementation in game required
-		if (!game.Over());
+		if (!game.isWon());
 			game.save();
-		game.Exit();
 		return true;
+	}
+	
+	public ArrayList<Point> getPossibleMoves(){
+		return game.gameLogic.getPossibleMoves();
+	}
+	
+//	public void setPossibleMoves(){
+//    	ArrayList<Point> possibleMoves = getPossibleMoves();
+//		//Iterator<Point> iter = possibleMoves.iterator();
+//    	if (!getPossibleMoves().isEmpty()){
+//	    	for (Point move : possibleMoves)
+//	    		game.GetGameBoard().GetCell(move.x, move.y).setColor(Cell.GamePiece.MOVE);;
+//    	}
+//    }
+	
+	public boolean gameOver() {
+		if (game.isWon())
+			return true;
+			return false;
 	}
 	
 	public boolean loadGame(){
@@ -73,17 +106,21 @@ public class GameController {
 //	    	  System.out.println("Error");
 //	    	}
 		return false;
-	
 	}
 	
-	public boolean enterMove(Point playerMove) {
-		// I'd like to see if we can tidy what happens between this and the Game.TakeTurn up, so that the player is
-		//specified here and the if else loops can be removed from the Game.TakeTurn.
-		return game.makeMove(playerMove);
+	public boolean takeTurn(Point playerMove) {
+		return game.takeTurn(playerMove);
 	}
 
+	public int[] getPlayerScores() {
+		// returns both player scores at once
+		int[] playerScores = {0,0};
+		int i = 0;
+		for (Player player : game.getPlayers()){
+			playerScores[i] = player.GetScore();
+			i++;
+		}
+		return playerScores;
+	}
 
-
-
-	
 }

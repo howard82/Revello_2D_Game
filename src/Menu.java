@@ -39,6 +39,7 @@ public class Menu {
 
 	public static void ExitMenu() {
 		// TODO Auto-generated method stub
+		// Optional: Create a sub-menu that asks if the user really wants to exit, enter Y or N to return to Main Menu
 		System.out.println("Goodbye");
 	}
 

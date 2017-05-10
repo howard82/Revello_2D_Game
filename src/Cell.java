@@ -10,12 +10,12 @@ public class Cell{
 		return value;
 	}
 	
-	public void setBlack(){
-		value = GamePiece.BLACK;
+	public void setColor(Cell.GamePiece color){
+		value = color;
 	}
 	
-	public void setEmpty(){
-		value = GamePiece.EMPTY;
+	public void setBlack(){
+		value = GamePiece.BLACK;
 	}
 	
 	public void setRed(){

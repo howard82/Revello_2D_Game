@@ -1,126 +1,103 @@
 import java.awt.Point;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Formatter;
 //import java.util.Scanner;
 
 public abstract class Game{
-	protected Player player1;
-	protected Player player2;
+//	protected Player player1;
+// Player player2;
+	protected Player[] players;
 	protected GameBoard gameboard;
 	protected GameLogic gameLogic = new GameLogic(this);
-	protected int gameboardSize;
-	//Cell[][] tempCells;
 	protected int turnCounter = 0;
 	
 	// custom size board constructor
 	public Game(int gameboardSize){
-		this.gameboardSize = gameboardSize;
 		gameboard = new GameBoard(gameboardSize);
-		//tempCells = new Cell[gameboardSize][gameboardSize];
-	}
-	
-	public void initialise(){
-		System.out.println("Default starting pieces loaded to gameboard");
-		gameboard.initialise();
-	}
-	
-	public boolean makeMove(Point playerMove){
-		if (gameLogic.isValidMove(getNextPlayer(), playerMove)){
-			gameLogic.ConvertPieces(getNextPlayer(), playerMove);	
-			updateScores();
-			turnCounter = turnCounter + 1;
-			return true;
-		}
-		return false;
-	}
-	
-	public abstract boolean takeTurn(Point playerMove);
-//	public void MakeTwoPlayerGame(){
-//		player1 = new HumanPlayer("Player1",Cell.GamePiece.Red);
-//		player2 = new HumanPlayer("Player2",Cell.GamePiece.Black);
-//		gameboard.initialise();
-//	}
-//	
-//	public void MakeSinglePlayerGame(){
-//		player1 = new HumanPlayer("Player1", Cell.GamePiece.Red);
-//		player2 = new ComputerPlayer("Computer",Cell.GamePiece.Black);
-		//this is not great i.e a double up of the above, 
-		//the initialise was originally done in Gameboard constructor, but may interfere with Resume/Load game
-		//may have to find a better way to do this at some point
-	//}
-//	
-//	public void playGame(){
-//		gameboard.initialise();
-//		
-//	}
-	
-	public void updateScores() {
-		// TODO Auto-generated method stub
-		int blackCount = 0;
-		int redCount = 0;
-		for (int x = 0; x<gameboard.size; x++)
-			for (int y = 0; y<gameboard.size; y++){
-				if (gameboard.GetCell(x,y).getValue() == Cell.GamePiece.BLACK)
-					blackCount = blackCount + 1;
-				else if (gameboard.GetCell(x,y).getValue() == Cell.GamePiece.RED)
-					redCount = redCount + 1;
-			}
-			System.out.println("player 1 score = " + blackCount);
-			player1.SetScore(blackCount);
-			System.out.println("player 2 score = " + redCount);
-			player2.SetScore(redCount);
-	}
-	
-	protected Player getNextPlayer(){
-		if (turnCounter % 2 == 0)
-			return player1;
-		else
-			return player2;
-	}
-	
-//	public abstract boolean nextMove(Point playerMove);
-	
-	public boolean Exit(){
-		System.out.println("Exiting Game");
-		//not exactly sure what needs implementing here...
-		//may not need a return, boolean for now
-		return true;
 	}
 	
 	//don't like this much, used by ConsoleGameView.ShowGameBoard which needs some work probably
 	public GameBoard GetGameBoard(){
 		return gameboard;
 	}
-
-	public int GetGameboardSize() {
-		return gameboardSize;
+	
+	protected Player[] getPlayers(){
+		return players;
 	}
+	
+	protected Player getCurrentPlayer(){
+		if (turnCounter % 2 == 0)
+			return players[0];
+		else
+			return players[1];
+	}
+
+	public abstract boolean takeTurn(Point playerMove);
+
 	
 	public boolean save(){
-		System.out.println("Game saved");
-	//Below is just stuff copied from SoloLearn, use whatever is applicable
-	// Formatter will overwrite an existing file with a blank one? used to create content and write it to files.
-//		try {
-//	    Formatter f = new Formatter("C:\\sololearn\\test.txt");
-//	    f.format("%s %s %s", "1","John", "Smith \r\n");
-//	    f.format("%s %s %s", "2","Amy", "Brown"); 
-//	    //the format %s %s %s denotes three strings that are separated with spaces.\r\n is the newline symbol in Windows.
-//	    f.close();    
-//	  } catch (Exception e) {
-//	      System.out.println("Error");
-//	  }
+		int[] array = new int[GetGameBoard().GetSize()];
+		int player1Score = players[0].GetScore();
+		int player2Score = players[1].GetScore();
+		SaveGame(turnCounter, player1Score, player2Score, array);
+		System.out.println("\nGame saved\n");
 		return true;
-	
 	}
+
+	public void SaveGame(int turnCounter, int player1Score, int player2Score, int[] gameBoard) {
+
+		try {
+			String saveFileName = "savedGame";
+			FileOutputStream saveFile=new FileOutputStream(saveFileName);
+			ObjectOutputStream save = new ObjectOutputStream(saveFile);
+
+			save.writeObject(turnCounter);
+			save.writeObject(player1Score);
+			save.writeObject(player2Score);
+			save.writeObject(gameBoard);
+
+			save.flush();
+			save.close();
+			}
+
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
+	}		
+
 	
-	public static boolean Load(){
-		System.out.println("Load saved game");
+	
+	public static boolean Load(String saveFileName){
+		System.out.println("Loading saved game");
+		
+		try {
+			FileInputStream saveFile = new FileInputStream(saveFileName);
+			ObjectInputStream RevelloSaveGame = new ObjectInputStream(saveFile);
+
+			int turnCounterFromSave = (int) RevelloSaveGame.readObject();
+			int player1ScoreFromSave = (int) RevelloSaveGame.readObject();
+			int player2ScoreFromSave = (int) RevelloSaveGame.readObject();
+			int[] gameBoardFromSave = (int[]) RevelloSaveGame.readObject();
+			
+			RevelloSaveGame.close();
+		}
+
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
+		
 		return false;
 	}
 
-	public boolean Over() {
-		System.out.println("Game is finished.");
+	public boolean isWon() {
+		//loop through all gameboard pieces and use the existing isValidMove method to determine if 
+		//there are any more moves left on the board
+		if (gameLogic.getPossibleMoves().isEmpty()){
+			System.out.println("Game is not finished.");
+		}
+
 		// Tally scores, who is the winner? Ask player1 and player2 for scores
 		return false;
 	}
-
 }
