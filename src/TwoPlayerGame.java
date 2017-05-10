@@ -1,6 +1,3 @@
-import java.awt.Point;
-import java.util.ArrayList;
-
 public class TwoPlayerGame extends Game {
 	
 	// for loading a new game
@@ -20,21 +17,22 @@ public class TwoPlayerGame extends Game {
 	}
 	
 	//
-	public boolean takeTurn(Point playerMove){
-		Player player =  getCurrentPlayer();
-		ArrayList<Point> piecesToConvert = gameLogic.getValidMoves(player, playerMove);
-		
-		if (!piecesToConvert.isEmpty()){
-			GetGameBoard().setGameBoardCellColor(player.color, playerMove);
-			gameboard.GetCells()[playerMove.x][playerMove.y].setColor(player.GetColor());
-			gameLogic.convertOpponentPieces(gameboard.GetCells(), player.GetColor(), piecesToConvert);
-			gameLogic.updateScores();
-			turnCounter = turnCounter + 1;
-			//requires implementation
-			return true;
-		}
-		return false;
-	}	
+//	public boolean takeTurn(Point playerMove){
+//		
+//		Player player =  getCurrentPlayer();
+//		ArrayList<Point> piecesToConvert = gameLogic.getValidMoves(player, playerMove);
+//		
+//		if (!piecesToConvert.isEmpty()){
+//			GetGameBoard().setGameBoardCellColor(player.color, playerMove);
+//			gameboard.GetCells()[playerMove.x][playerMove.y].setColor(player.GetColor());
+//			gameLogic.convertOpponentPieces(gameboard.GetCells(), player.GetColor(), piecesToConvert);
+//			gameLogic.updateScores();
+//			turnCounter = turnCounter + 1;
+//			//requires implementation
+//			return true;
+//		}
+//		return false;
+//	}	
 }
 
 

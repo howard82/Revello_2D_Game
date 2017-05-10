@@ -1,6 +1,7 @@
 import java.awt.Point;
 import java.io.*;
 //import java.util.Scanner;
+import java.util.ArrayList;
 
 public abstract class Game{
 //	protected Player player1;
@@ -31,8 +32,20 @@ public abstract class Game{
 			return players[1];
 	}
 
-	public abstract boolean takeTurn(Point playerMove);
+	//public abstract boolean takeTurn(Point playerMove);
 
+	public boolean takeTurn(Point playerMove){
+		Player player =  getCurrentPlayer();
+		ArrayList<Point> piecesToConvert = gameLogic.getValidMoves(player, playerMove) ;
+		if (!piecesToConvert.isEmpty()){
+			gameboard.GetCells()[playerMove.x][playerMove.y].setColor(player.GetColor());
+			gameLogic.convertOpponentPieces(gameboard.GetCells(), player.GetColor(), piecesToConvert);
+			gameLogic.updateScores();
+			turnCounter = turnCounter + 1;
+			return true;
+		}
+		return false;
+	}
 	
 	public boolean save(){
 		int[] array = new int[GetGameBoard().GetSize()];

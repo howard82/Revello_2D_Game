@@ -119,7 +119,7 @@ public class GameLogic
 	//Needs to take an empty gameboard cell as an input from 
     protected Point getBestMove(Player player)//(Cell cell)
     {
-    	Point bestMove = new Point(null);
+    	Point bestMove = new Point();
     	Point nextPotentialMove = new Point(null);
     	int noOfConversions = 0, mostConversions = 0;
     	ArrayList<Point> possibleMoves = new ArrayList<Point>();
