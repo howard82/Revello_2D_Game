@@ -33,7 +33,7 @@ public class GameController {
 		game.GetGameBoard().initialise();
 	}
 	
-	public Player getNextPlayer(){
+	public Player getCurrentPlayer(){
 		return game.getCurrentPlayer();
 	}
 	

@@ -45,7 +45,7 @@ public class Program {
 		GC.newTwoPlayerGame(Menu.GameBoardSizeMenu(), "Player O", "Player X");
 		do{
 			ConsoleGameView.ShowGameBoard(GC.getGameBoardCells(),GC.getGameBoardSize(), GC.getPlayerScores(), GC.getPossibleMoves());
-			userInput = ConsoleGameView.GetMoveInput(GC.getNextPlayer());
+			userInput = ConsoleGameView.GetMoveInput(GC.getCurrentPlayer());
 			if (!userInput.toUpperCase().equals("X")){
 				moveXY = ConsoleGameView.ConvertToXY(userInput);
 				if (!GC.takeTurn(moveXY))

@@ -95,8 +95,6 @@ public abstract class Game{
 		if (gameLogic.getPossibleMoves().isEmpty()){
 			System.out.println("Game is not finished.");
 		}
-
-		// Tally scores, who is the winner? Ask player1 and player2 for scores
 		return false;
 	}
 }

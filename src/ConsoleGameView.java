@@ -44,8 +44,6 @@ public class ConsoleGameView {
 					System.out.print(" O |");
 					break;
 				}
-				
-				
 			}
 			//Add appropriate number of horizontal dashes for game board size
 			System.out.println("");

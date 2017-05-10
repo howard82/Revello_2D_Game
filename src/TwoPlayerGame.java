@@ -23,6 +23,7 @@ public class TwoPlayerGame extends Game {
 	public boolean takeTurn(Point playerMove){
 		Player player =  getCurrentPlayer();
 		ArrayList<Point> piecesToConvert = gameLogic.getValidMoves(player, playerMove);
+		
 		if (!piecesToConvert.isEmpty()){
 			GetGameBoard().setGameBoardCellColor(player.color, playerMove);
 			gameboard.GetCells()[playerMove.x][playerMove.y].setColor(player.GetColor());
