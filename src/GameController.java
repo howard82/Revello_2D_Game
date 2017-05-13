@@ -1,6 +1,13 @@
 import java.awt.Point;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class GameController {
 	Game game;
@@ -50,7 +57,7 @@ public class GameController {
 		return game.GetGameBoard().GetSize();
 	}
 	
-	public boolean ExitGame(){
+	public boolean ExitGame() {
 		System.out.println("User has hit X to Exit. Save (if game not finished) and Exit methods in game class");
 		//implementation in game required
 		if (!game.isWon());
@@ -91,8 +98,8 @@ public class GameController {
 		}
 		return playerScores;
 	}
-	
-	static void LoadGame() {
+
+	public static void LoadGame() {
 		// Retrieve the users default save directory
 		StringBuilder saveFileDirectory = new StringBuilder(System.getProperty("user.dir"));
 		// Append the save file name to the directory
@@ -100,12 +107,28 @@ public class GameController {
 		String fullSaveFileDirectory = saveFile.toString();
 		File saveFileAsTypeFile = new File(fullSaveFileDirectory);
 		
-		// Check to see if the file exists
-		if(saveFileAsTypeFile.exists() && !saveFileAsTypeFile.isDirectory()) {
-			Game.Load("RevelloSaveGame.sav");
+		Cell[][] gameBoardFromSave;
+		
+		try {
+			Scanner fileScanner = new Scanner(new FileReader(Game.saveFileName));
+			fileScanner.useDelimiter(",");
+			
+			// Data currently being read from the txt file
+			String readData = null;
+			
+			// Check to see if the file exists
+			if(saveFileAsTypeFile.exists() && !saveFileAsTypeFile.isDirectory()) {
+		          while (fileScanner.hasNext())
+		          {
+		        	  readData = fileScanner.next();
+		        	  // the data now needs to be used to create a game board
+		          }
+			}
 		}
-	    else {
-	    	System.out.println("\nYou have no saved game\n");
-	    }
+		
+		catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -3,6 +3,7 @@ import java.io.*;
 //import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public abstract class Game {
 //	protected Player player1;
@@ -11,7 +12,7 @@ public abstract class Game {
 	protected GameBoard gameboard;
 	protected GameLogic gameLogic = new GameLogic(this);
 	protected int turnCounter = 0;
-	public final static String saveFileName = "RevelloSaveGame.sav";
+	public final static String saveFileName = "RevelloSaveGame.txt";
 	
 	// custom size board constructor
 	public Game(int gameboardSize){
@@ -49,86 +50,27 @@ public abstract class Game {
 		return false;
 	}
 
-	public boolean save() {
-		
-		// This is temporary, till i find how to import current game state
-		int[][] gameBoardCurrentState = new int[GetGameBoard().GetSize()] [GetGameBoard().GetSize()];
-		for(int i=0; i<GetGameBoard().GetSize(); i++) {
-			for(int j=0; j<GetGameBoard().GetSize(); j++) {
-				gameBoardCurrentState[i][j] = i;
-			}
-		}
-			
-//		THIS DOES NOT WORK - though i believe its a good start
-//		Cell[][] gameBoardCurrentState = new Cell[GetGameBoard().GetSize()] [GetGameBoard().GetSize()];
-//		
-//		GameController GC = GameController.getInstance();
-//		
-//		for(int i=0; i<GetGameBoard().GetSize(); i++) {
-//			for(int j=0; j<GetGameBoard().GetSize(); j++) {
-//				Cell boardCell= GC.getGameBoardCell(i,i);
-//				gameBoardCurrentState[i][i] = boardCell;
-//			}
-//		}
-		
-		int player1Score = players[0].GetScore();
-		int player2Score = players[1].GetScore();
-		SaveGame(turnCounter, player1Score, player2Score, gameBoardCurrentState);
-		System.out.println("\nGame saved\n");
-		
-		return true;
-	}
-	
-	// the third parameter here is INT, while i believe it will need to be changed to CELL
-	public void SaveGame(int turnCounter, int player1Score, int player2Score, int[][] gameBoardCurrentState) {
-
+	public void save() {
 		try {
-			FileOutputStream saveFile=new FileOutputStream(saveFileName);
-			ObjectOutputStream save = new ObjectOutputStream(saveFile);
+			PrintWriter outputFile = new PrintWriter(new BufferedWriter(new FileWriter(saveFileName)));
+			int gameboardSize = GetGameBoard().GetSize();
+			int player1Score = players[0].GetScore();
+			int player2Score = players[1].GetScore();
+			Cell[][] gameboardCells = GetGameBoard().GetCells();
 
-			save.writeObject(turnCounter);
-			save.writeObject(player1Score);
-			save.writeObject(player2Score);
-			save.writeObject(gameBoardCurrentState);
-
-			save.flush();
-			save.close();
-			
-			}
-
-		catch(Exception exc) {
-			exc.printStackTrace();
-		}
-	}
-
-	public static boolean Load(String saveFileName){
-		int  turnCounterFromSave = 0;
-		int player1ScoreFromSave = 0;
-		int player2ScoreFromSave = 0;
-		int[] [] gameBoardFromSave = null;
-		
-		try {
-			FileInputStream saveFile = new FileInputStream(saveFileName);
-			ObjectInputStream RevelloSaveGame = new ObjectInputStream(saveFile);
-
-			turnCounterFromSave = (int) RevelloSaveGame.readObject();
-			player1ScoreFromSave = (int) RevelloSaveGame.readObject();
-			player2ScoreFromSave = (int) RevelloSaveGame.readObject();
-			gameBoardFromSave = (int[] []) RevelloSaveGame.readObject();
-			RevelloSaveGame.close();
-		}
-
-		catch(Exception exc) {
-			exc.printStackTrace();
+			outputFile.write(Integer.toString(gameboardSize) + ",");
+			    for (int x = 0; x < gameboardSize; x++) {
+			        for (int y = 0; y < gameboardSize; y++){
+			        	outputFile.append(gameboardCells[x][y].getValue() + ",");
+			        }
+			    }
+			    outputFile.close();
+		        outputFile.flush();
 		}
 		
-		// for testing purposes. remove before submitting
-		System.out.println(turnCounterFromSave);
-		System.out.println(player1ScoreFromSave);
-		System.out.println(player2ScoreFromSave);
-		System.out.println(Arrays.deepToString(gameBoardFromSave));
-		
-		return false;
+		catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public boolean isWon() {
