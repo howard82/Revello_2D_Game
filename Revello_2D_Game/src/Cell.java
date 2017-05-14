@@ -10,12 +10,12 @@ public class Cell{
 		return value;
 	}
 	
-	public void setColor(Cell.GamePiece color){
-		value = color;
-	}
-	
 	public void setBlack(){
 		value = GamePiece.BLACK;
+	}
+	
+	public void setEmpty(){
+		value = GamePiece.EMPTY;
 	}
 	
 	public void setRed(){
@@ -24,10 +24,7 @@ public class Cell{
 	
 	public String toString(){
 		return null;
+		
 	}
 	
-	public void loadValue(String loadValue)
-	{
-	   value = GamePiece.valueOf(loadValue); 
-	}
 }

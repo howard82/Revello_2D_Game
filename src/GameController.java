@@ -100,35 +100,16 @@ public class GameController {
 	}
 
 	public static void LoadGame() {
-		// Retrieve the users default save directory
-		StringBuilder saveFileDirectory = new StringBuilder(System.getProperty("user.dir"));
-		// Append the save file name to the directory
-		StringBuilder saveFile = saveFileDirectory.append("\\" + Game.saveFileName);
-		String fullSaveFileDirectory = saveFile.toString();
-		File saveFileAsTypeFile = new File(fullSaveFileDirectory);
 		
-		Cell[][] gameBoardFromSave;
 		
-		try {
-			Scanner fileScanner = new Scanner(new FileReader(Game.saveFileName));
-			fileScanner.useDelimiter(",");
+		GameBoard gameBoardFromSave;
+		
+			int gameBoardSize = 8;
+			gameBoardFromSave = new GameBoard(gameBoardSize);
+			gameBoardFromSave.load();	        	 
+		          
 			
-			// Data currently being read from the txt file
-			String readData = null;
-			
-			// Check to see if the file exists
-			if(saveFileAsTypeFile.exists() && !saveFileAsTypeFile.isDirectory()) {
-		          while (fileScanner.hasNext())
-		          {
-		        	  readData = fileScanner.next();
-		        	  // the data now needs to be used to create a game board
-		          }
-			}
-		}
+
 		
-		catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
