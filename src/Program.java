@@ -49,7 +49,7 @@ public class Program {
 			if (!userInput.toUpperCase().equals("X")){
 				moveXY = ConsoleGameView.ConvertToXY(userInput);
 				if (!GC.takeTurn(moveXY))
-					System.out.println("This was not a valid move. Please try again.");
+					System.out.println("This was not a valid move. Please try again.\n");
 			}
 			else
 				userExit = GC.ExitGame();

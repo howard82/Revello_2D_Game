@@ -61,34 +61,43 @@ public class ConsoleGameView {
 		//String validMoveInput = GetUserInput();
 		
 		//Convert valid string input to Point type (holds X,Y coordinates)
+
 		String[] XY = validMoveInput.toUpperCase().split("");
-		
+		int intX = 0;
+		int intY = 0;
 		String X = XY[0];
 		//Converts string X to integer
-		int intX = Integer.parseInt(X);
-		intX -= 1;
+		try {
+			intX = Integer.parseInt(X);
+			intX -= 1;
+
+			String Y = XY[1];
+			//Converts string Y to char
+			char YToChar = Y.charAt(0);
 	
-		String Y = XY[1];
-		//Converts string Y to char
-		char YToChar = Y.charAt(0);
-		
-		int intY = 0;
-		
-		//user selection index
-		char[] column = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
+			intY = 0;
+
+			//user selection index
+			char[] column = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
 				'P','Q','R','S','T','U','V','W','X','Y','Z'};
-		//iterates through index to find users selection
-		for (int i = 0; i < column.length; i++)
-		{
-			if (column[i] == YToChar){
-				intY = i;
+			//iterates through index to find users selection
+			for (int i = 0; i < column.length; i++)
+			{
+				if (column[i] == YToChar){
+					intY = i;
 				}
-			
+			}
 		}
-		System.out.println(validMoveInput + " converted to Point type");
+		
+		catch (NumberFormatException ex) {
+		}
+		
+		//System.out.println(validMoveInput + " converted to Point type");
 
 		//Convert users input to point(x,y)
+		
 		Point playerMove = new Point(intX,intY);
+		
 		return playerMove;
 	}
 	
@@ -116,8 +125,9 @@ public class ConsoleGameView {
 			try {
 				userString = reader.readLine();
 				//userString = scanner.nextLine();
+				System.out.print("\n");
 			}
-			catch (Exception e) 
+			catch (Exception e)
 			{
 				System.out.println("Incorrect input");
 			}
