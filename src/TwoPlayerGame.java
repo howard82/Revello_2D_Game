@@ -34,5 +34,3 @@ public class TwoPlayerGame extends Game {
 //		return false;
 //	}	
 }
-
-

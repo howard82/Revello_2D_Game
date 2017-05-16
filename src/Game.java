@@ -87,31 +87,6 @@ public abstract class Game{
 		}
 	}
 
-	public static boolean Load(String saveFileName){
-		System.out.println("Loading saved game");
-		int  turnCounterFromSave = 0;
-		int player1ScoreFromSave = 0;
-		int player2ScoreFromSave = 0;
-		int[] gameBoardFromSave = null;
-		
-		try {
-			FileInputStream saveFile = new FileInputStream(saveFileName);
-			ObjectInputStream RevelloSaveGame = new ObjectInputStream(saveFile);
-
-			turnCounterFromSave = (int) RevelloSaveGame.readObject();
-			player1ScoreFromSave = (int) RevelloSaveGame.readObject();
-			player2ScoreFromSave = (int) RevelloSaveGame.readObject();
-			gameBoardFromSave = (int[]) RevelloSaveGame.readObject();
-			RevelloSaveGame.close();
-		}
-
-		catch(Exception exc) {
-			exc.printStackTrace();
-		}
-		
-		return false;
-	}
-
 	public boolean isWon() {
 		//loop through all gameboard pieces and use the existing isValidMove method to determine if 
 		//there are any more moves left on the board
