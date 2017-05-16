@@ -72,7 +72,7 @@ public class Program {
 				ConsoleGameView.ShowGameBoard(GC);
 				System.out.println("\nGame is finished.\n");
 				for (Player player : players)
-					System.out.println("Player " + player.GetScore() + " final score " + player.GetScore());
+					System.out.println("Player " + player.getName() + " final score " + player.GetScore());
 				System.out.println("\nPress enter to return to Main Menu...");
 				try {
 					System.in.read();
@@ -119,7 +119,7 @@ public class Program {
 				ConsoleGameView.ShowGameBoard(GC);
 				System.out.println("\nGame is finished.\n");
 				for (Player player : players)
-					System.out.println("Player " + player.GetScore() + " final score " + player.GetScore());
+					System.out.println("Player " + player.getName() + " final score " + player.GetScore());
 				System.out.println("\nPress enter to return to Main Menu...");
 				try {
 					System.in.read();
