@@ -50,84 +50,91 @@ public class Program {
 	
 	private static void TwoPlayerGame() 
 	{
-		Point moveXY = null;
-		boolean userExit = false;
-		String userInput;
 		int gameboardSize = Menu.GameBoardSizeMenu();
 		if (gameboardSize !=0){
 			GC.newTwoPlayerGame(gameboardSize, "Player O", "Player X");
-			do{
-				ConsoleGameView.ShowGameBoard(GC);
-				userInput = ConsoleGameView.GetMoveInput(GC.getCurrentPlayer());
-				if (!userInput.toUpperCase().equals("X")){
-					moveXY = ConsoleGameView.ConvertToXY(userInput);
-					if (!GC.takeTurn(moveXY))
-						System.out.println("This was not a valid move. Please try again.");
-				}
-				else
-					userExit = GC.ExitGame();
-			}while (!userExit && !GC.gameOver());
-			if (GC.gameOver()){
-				Player[] players = GC.game.getPlayers();
-				ConsoleGameView.ShowGameBoard(GC);
-				System.out.println("\nGame is finished.\n");
-				for (Player player : players)
-					System.out.println("Player " + player.GetScore() + " final score " + player.GetScore());
-				System.out.println("\nPress enter to return to Main Menu...");
-				try {
-					System.in.read();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}	
+			playTwoPlayerGame();
 		}
-		
 	}
 
 	private static void SinglePlayerGame() {
-		Point moveXY = null;
-		boolean userExit = false;
-		String userInput;
 		int gameboardSize = Menu.GameBoardSizeMenu();
 		if (gameboardSize !=0){
 			GC.newSinglePlayerGame(gameboardSize, "Player O", "Player X");
-			do{
-				ConsoleGameView.ShowGameBoard(GC);
-				userInput = ConsoleGameView.GetMoveInput(GC.getCurrentPlayer());
-				if (!userInput.toUpperCase().equals("X")){
-					moveXY = ConsoleGameView.ConvertToXY(userInput);
-					if (!GC.takeTurn(moveXY))
-						System.out.println("This was not a valid move. Please try again.");
-					else
-					{
-						ConsoleGameView.ShowGameBoard(GC);
-						System.out.println("\nPress enter for computer player to take turn...");
-						try {
-							reader.readLine();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						GC.game.gameLogic.doComputerMove();
-						System.out.println("Computer has taken its turn");
-					}
-				}
-				else
-					userExit = GC.ExitGame();
-			}while (!userExit && !GC.gameOver());
-			if (GC.gameOver()){
-				Player[] players = GC.game.getPlayers();
-				ConsoleGameView.ShowGameBoard(GC);
-				System.out.println("\nGame is finished.\n");
-				for (Player player : players)
-					System.out.println("Player " + player.GetScore() + " final score " + player.GetScore());
-				System.out.println("\nPress enter to return to Main Menu...");
-				try {
-					System.in.read();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}	
+			playSingleGame();
 		}
+	}
+	
+	private static void playTwoPlayerGame(){
+		Point moveXY = null;
+		boolean userExit = false;
+		String userInput;
+		do{
+			ConsoleGameView.ShowGameBoard(GC);
+			userInput = ConsoleGameView.GetMoveInput(GC.getCurrentPlayer());
+			if (!userInput.toUpperCase().equals("X")){
+				moveXY = ConsoleGameView.ConvertToXY(userInput);
+				if (!GC.takeTurn(moveXY))
+					System.out.println("This was not a valid move. Please try again.");
+			}
+			else
+				userExit = GC.ExitGame();
+		}while (!userExit && !GC.gameOver());
+		if (GC.gameOver()){
+			Player[] players = GC.game.getPlayers();
+			ConsoleGameView.ShowGameBoard(GC);
+			System.out.println("\nGame is finished.\n");
+			for (Player player : players)
+				System.out.println("Player " + player.GetScore() + " final score " + player.GetScore());
+			System.out.println("\nPress enter to return to Main Menu...");
+			try {
+				System.in.read();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}	
+	}
+	
+	private static void playSingleGame(){
+		Point moveXY = null;
+		boolean userExit = false;
+		String userInput;
+		do{
+			ConsoleGameView.ShowGameBoard(GC);
+			userInput = ConsoleGameView.GetMoveInput(GC.getCurrentPlayer());
+			if (!userInput.toUpperCase().equals("X")){
+				moveXY = ConsoleGameView.ConvertToXY(userInput);
+				if (!GC.takeTurn(moveXY))
+					System.out.println("This was not a valid move. Please try again.");
+				else
+				{
+					ConsoleGameView.ShowGameBoard(GC);
+					System.out.println("\nPress enter for computer player to take turn...");
+					try {
+						reader.readLine();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					GC.game.gameLogic.doComputerMove();
+					System.out.println("Computer has taken its turn");
+				}
+			}
+			else
+				userExit = GC.ExitGame();
+		}while (!userExit && !GC.gameOver());
+		if (GC.gameOver()){
+			Player[] players = GC.game.getPlayers();
+			ConsoleGameView.ShowGameBoard(GC);
+			System.out.println("\nGame is finished.\n");
+			for (Player player : players)
+				System.out.println("Player " + player.GetScore() + " final score " + player.GetScore());
+			System.out.println("\nPress enter to return to Main Menu...");
+			try {
+				System.in.read();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}	
 	}
 	
 	private static void LoadGame() {
