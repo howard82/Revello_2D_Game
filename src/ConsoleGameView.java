@@ -7,12 +7,24 @@ import java.util.ListIterator;
 
 public class ConsoleGameView {
 	//this may need work, or to use the Gamecontroller somehow don't like the game.GetGameBoard.GetCell stuff
-	public static void ShowGameBoard(Cell[][] gameboardCells, int gameBoardSize, int[] playerScores, ArrayList<Point> possibleMoves){
+	public static void ShowGameBoard(GameController GC){
+		Cell[][] gameboardCells = GC.getGameBoardCells();
+		int gameBoardSize = GC.getGameBoardSize();
+		//int[] playerScores = GC.getPlayerScores();
+		ArrayList<Point> possibleMoves = GC.getPossibleMoves();
+		
 		char[] columnHead = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'
 				,'R','S','T','U','V','W','X'};
 		int[] rowHead = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
 		
 		System.out.println("");
+		for (Player player : GC.game.getPlayers())
+		{
+			System.out.println(player.getName() + " Score: " + player.GetScore());
+		}
+		System.out.println("");
+		
+		//create column headers
 		System.out.print("    ");
 		for (int x=0; x<gameBoardSize; x++)
 		{
@@ -61,7 +73,6 @@ public class ConsoleGameView {
 		//String validMoveInput = GetUserInput();
 		
 		//Convert valid string input to Point type (holds X,Y coordinates)
-
 		String[] XY = validMoveInput.toUpperCase().split("");
 		int intX = 0;
 		int intY = 0;
@@ -74,8 +85,6 @@ public class ConsoleGameView {
 			String Y = XY[1];
 			//Converts string Y to char
 			char YToChar = Y.charAt(0);
-	
-			intY = 0;
 
 			//user selection index
 			char[] column = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O',
@@ -91,9 +100,6 @@ public class ConsoleGameView {
 		
 		catch (NumberFormatException ex) {
 		}
-		
-		//System.out.println(validMoveInput + " converted to Point type");
-
 		//Convert users input to point(x,y)
 		
 		Point playerMove = new Point(intX,intY);
@@ -124,10 +130,16 @@ public class ConsoleGameView {
 
 			try {
 				userString = reader.readLine();
+			//	if (userString.length() != 2)
+			//		System.out.println("Input must be two characters long");
+			//	else
+			//	{
+					
+			//	}
+					
 				//userString = scanner.nextLine();
-				System.out.print("\n");
 			}
-			catch (Exception e)
+			catch (Exception e) 
 			{
 				System.out.println("Incorrect input");
 			}

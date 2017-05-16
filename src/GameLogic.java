@@ -32,7 +32,6 @@ public class GameLogic
 	    			}
 	    		}
 			}
-			
 		}
 		//will return a null if no valid piece conversions are found
 		return cellsToConvert;
@@ -50,7 +49,6 @@ public class GameLogic
 		}
     	//System.out.println("Doesn't have a valid cell nearby");
     	return false;
-    	
     }
     
     private ArrayList<Point> getConvertPieces(Player player, int moveX, int moveY, int xDir, int yDir, ArrayList<Point> cellsToConvert){
@@ -88,7 +86,6 @@ public class GameLogic
     	return cellsToConvert;
     }
     
-    
 	protected void convertOpponentPieces(Cell[][] gameboard, Cell.GamePiece color, ArrayList<Point> cellsToConvert) {
 		Point piece;
 		Iterator<Point> iter = cellsToConvert.iterator();
@@ -100,7 +97,7 @@ public class GameLogic
 	}
 
 	protected void updateScores() {
-		// TODO Auto-generated method stub
+
 		int blackCount = 0;
 		int redCount = 0;
 		for (int x = 0; x<game.GetGameBoard().GetSize(); x++)
@@ -110,17 +107,14 @@ public class GameLogic
 				else if (game.GetGameBoard().GetCell(x,y).getValue() == Cell.GamePiece.RED)
 					redCount = redCount + 1;
 			}
-			System.out.println("player 1 score = " + blackCount);
-			game.players[0].SetScore(blackCount);
-			System.out.println("player 2 score = " + redCount);
-			game.players[1].SetScore(redCount);
+			game.players[0].SetScore(redCount);
+			game.players[1].SetScore(blackCount);
 	}
 
-	//Needs to take an empty gameboard cell as an input from 
-    protected Point getBestMove(Player player)//(Cell cell)
+    protected Point getBestMove(Player player)
     {
     	Point bestMove = new Point();
-    	Point nextPotentialMove = new Point(null);
+    	Point nextPotentialMove = new Point();
     	int noOfConversions = 0, mostConversions = 0;
     	ArrayList<Point> possibleMoves = new ArrayList<Point>();
     	possibleMoves = getPossibleMoves();
@@ -137,6 +131,10 @@ public class GameLogic
     	}
 		return bestMove;
     }
+    
+    public void doComputerMove(){
+		game.takeTurn(getBestMove(game.getCurrentPlayer()));
+	}
     
     protected ArrayList<Point> getPossibleMoves()//(Cell cell)
     {
@@ -156,7 +154,6 @@ public class GameLogic
     					tempPointArray.clear();
     				}
     			}
-    	System.out.println("movesRemaining = " + movesLeftArray.size());
     	return movesLeftArray;
     }
 }

@@ -35,5 +35,9 @@ public abstract class Player {
 	public void SetColor(Cell.GamePiece color) {
 		this.color = color;
 	}
+
+	public String getName() {
+		return name;
+	}
 	
 }
