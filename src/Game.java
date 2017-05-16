@@ -51,6 +51,7 @@ public abstract class Game{
 	
 	
 	public void save(){
+		//save file contents saved in the order: turnCounter, gameBoardSize, single/multiplayer game, gameBoard
 		try {
 			PrintWriter outputFile = new PrintWriter(new BufferedWriter(new FileWriter(saveFileName)));
 			int gameboardSize = GetGameBoard().GetSize();
@@ -59,7 +60,18 @@ public abstract class Game{
 			Cell[][] gameboardCells = GetGameBoard().GetCells();
 			
 			outputFile.println(turnCounter + ",");
-			outputFile.println(Integer.toString(gameboardSize)+ ","); 
+			outputFile.println(Integer.toString(gameboardSize)+ ",");
+			
+			//determine if the game is singleplayer or multiplayer
+			String className = this.getClass().getSimpleName();
+			
+			if (className.equals("SinglePlayerGame")) {
+				outputFile.println("1" + ",");
+			}
+			else {
+				outputFile.println("2" + ",");
+			}
+			
 		    for (int x = 0; x < gameboardSize; x++) {
 		        for (int y = 0; y < gameboardSize; y++){
 		        	outputFile.append(gameboardCells[x][y].getValue() + ",");
