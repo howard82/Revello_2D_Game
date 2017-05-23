@@ -10,10 +10,13 @@ public class TwoPlayerGame extends Game {
 	}
 	 
 	// for loading an existing game
-	public TwoPlayerGame(int gameBoardSize, String player1Name, String player2Name, int player1Score, int player2Score) {
+	public TwoPlayerGame(int gameBoardSize, String player1Name, String player2Name, int turnCount, Cell[][] cells) {
 		super(gameBoardSize);
-		players[0] = new HumanPlayer(player1Name,Cell.GamePiece.RED, player1Score);
-		players[1] = new HumanPlayer(player2Name,Cell.GamePiece.BLACK, player2Score);
+		players = new HumanPlayer[2];
+		players[0] = new HumanPlayer(player1Name,Cell.GamePiece.RED);
+		players[1] = new HumanPlayer(player2Name,Cell.GamePiece.BLACK);
+		this.turnCounter = turnCount;
+		gameboard.LoadSavedGame(cells);
 	}
 	
 	//

@@ -6,6 +6,10 @@ public class Cell{
 		value = GamePiece.EMPTY;
 	}
 	
+	public Cell(GamePiece gamePiece){
+		value = gamePiece;
+	}
+	
 	public GamePiece getValue(){
 		return value;
 	}
@@ -16,6 +20,10 @@ public class Cell{
 	
 	public void setBlack(){
 		value = GamePiece.BLACK;
+	}
+	
+	public void setEmpty(){
+		value = GamePiece.EMPTY;
 	}
 	
 	public void setRed(){

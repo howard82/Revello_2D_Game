@@ -1,5 +1,8 @@
 import java.awt.Point;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GameController {
 	Game game;
@@ -19,18 +22,60 @@ public class GameController {
 	public void newSinglePlayerGame(int boardSize, String player1Name, String player2Name) {
 		System.out.println("SINGLE PLAYER GAME");
 		game = new SinglePlayerGame(boardSize, player1Name, player2Name);
-		//return game;
 	}
 	
 	public void newTwoPlayerGame(int boardSize, String player1Name, String player2Name) {
 		System.out.println("TWO PLAYER GAME");
 		game = new TwoPlayerGame(boardSize, player1Name, player2Name);
-		//return game;
-		// TODO Auto-generated method stub
 	}
 	 
 	public void loadNewGame(){
 		game.GetGameBoard().initialise();
+	}
+	
+	public int loadExistingGame(){
+		File file = new File("RevelloSaveGame.txt");
+		Scanner scanner;
+		try {
+			scanner = new Scanner(file);
+			int turnCount = scanner.nextInt();
+			int boardSize = scanner.nextInt();
+			int gameType = scanner.nextInt();
+			scanner.nextLine();
+			Cell[][] cells = new Cell[boardSize][boardSize];
+			
+			String gameboardRow = null;
+			String[] gameboardCells = new String[boardSize];
+
+			while (scanner.hasNextLine()){				
+				for (int x=0; x<gameboardCells.length; x++){
+					gameboardRow = scanner.nextLine();
+					gameboardCells = gameboardRow.split(",");
+					for (int y=0; y<gameboardCells.length; y++){
+						cells[x][y] = new Cell();
+						if (gameboardCells[y].equals("BLACK"))
+							cells[x][y].setBlack();
+						if (gameboardCells[y].equals("RED"))
+							cells[x][y].setRed();
+					}
+				}
+				
+				if (gameType == 1)
+					game = new SinglePlayerGame(boardSize, "Player O", "Player X", turnCount, cells);
+				if (gameType == 2)
+					game = new TwoPlayerGame(boardSize, "Player O", "Player X", turnCount, cells);
+			}
+			scanner.close();
+			return gameType;
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return 0;
+		
 	}
 	
 	public Player getCurrentPlayer(){

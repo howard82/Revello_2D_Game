@@ -2,9 +2,12 @@ import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.util.Scanner;
 
 public class Program {
 	//private static Menu menu = new Menu();
@@ -130,27 +133,17 @@ public class Program {
 			}
 		}	
 	}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	private static void LoadGame() {
-		// Retrieve the users default save directory
-		StringBuilder saveFileDirectory = new StringBuilder(System.getProperty("user.dir"));
-		// Append the save file name to the directory
-		StringBuilder saveFile = saveFileDirectory.append("\\" + Game.saveFileName);
-		String fullSaveFileDirectory = saveFile.toString();
-		File saveFileAsTypeFile = new File(fullSaveFileDirectory);
-
-		// Check to see if the file exists
-		if(saveFileAsTypeFile.exists() && !saveFileAsTypeFile.isDirectory()) { 
-			//GameBoard.Load();
-		}
-	    else {
-	    	System.out.println("You have no saved game\n");
-	    }
+		int gameType = 0;
+		gameType = GC.loadExistingGame();
+		if (gameType == 1)
+			playSingleGame();
+		if (gameType == 2)
+			playTwoPlayerGame();
 	}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private static void ExitProgram() {
 	Menu.ExitMenu();
-}
+	}
 }

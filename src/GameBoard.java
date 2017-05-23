@@ -35,47 +35,14 @@ public class GameBoard {
 		}
 	}
 	
-    public void Load() {
-        String readData = null;
-        // Retrieve the users default save directory
-        StringBuilder saveFileDirectory = new StringBuilder(
-                System.getProperty("user.dir"));
-        // Append the save file name to the directory
-        StringBuilder saveFile = saveFileDirectory
-                .append("\\" + Game.saveFileName);
-        String fullSaveFileDirectory = saveFile.toString();
-        File saveFileAsTypeFile = new File(fullSaveFileDirectory);
-        try
+    public void LoadSavedGame(Cell[][] savedCells) {
+    	for (int x = 0; x < size; x++)
         {
-            Scanner fileScanner = new Scanner(
-                    new FileReader("RevelloSaveGame.txt"));
-            fileScanner.useDelimiter(",");
-            readData = fileScanner.next();
-            if (saveFileAsTypeFile.exists()
-                    && !saveFileAsTypeFile.isDirectory())
+            for (int y = 0; y < size; y++)
             {
-                // skipping the game board size value.
-                readData = fileScanner.next();
-
-                for (int x = 0; x <= size - 1; x++)
-                {
-                    for (int y = 0; y <= size - 1; y++)
-                    {
-                        while (fileScanner.hasNext())
-                        {
-
-                            gameBoard[x][y] = new Cell();
-                            gameBoard[x][y].loadValue(readData);
-                            readData = fileScanner.next();
-                        }
-                    }
-                }
-
+            	gameBoard[x][y] = new Cell(savedCells[x][y].getValue());
+            	//gameBoard[x][y].setColor(savedCells[x][y].getValue());
             }
-            fileScanner.close();
-        } catch (FileNotFoundException e)
-        {
-
         }
     }
 

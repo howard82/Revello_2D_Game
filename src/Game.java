@@ -59,17 +59,17 @@ public abstract class Game{
 //			int player2Score = players[1].GetScore();
 			Cell[][] gameboardCells = GetGameBoard().GetCells();
 			
-			outputFile.println(turnCounter + ",");
-			outputFile.println(Integer.toString(gameboardSize)+ ",");
+			outputFile.println(turnCounter);// + ",");
+			outputFile.println(Integer.toString(gameboardSize));//+ ",");
 			
 			//determine if the game is singleplayer or multiplayer
 			String className = this.getClass().getSimpleName();
 			
 			if (className.equals("SinglePlayerGame")) {
-				outputFile.println("1" + ",");
+				outputFile.println("1");// + ",");
 			}
 			else {
-				outputFile.println("2" + ",");
+				outputFile.println("2");// + ",");
 			}
 			
 		    for (int x = 0; x < gameboardSize; x++) {
