@@ -79,12 +79,4 @@ public class GameController {
 		}
 		return playerScores;
 	}
-
-	public static void LoadGame() {
-		GameBoard gameBoardFromSave;
-		
-		int gameBoardSize = 8;
-		gameBoardFromSave = new GameBoard(gameBoardSize);
-		gameBoardFromSave.load();	        	 
-	}
 }

@@ -34,10 +34,8 @@ public class GameBoard {
 			}
 		}
 	}
-    
 	
-    public void load()
-    {
+    public void Load() {
         String readData = null;
         // Retrieve the users default save directory
         StringBuilder saveFileDirectory = new StringBuilder(
