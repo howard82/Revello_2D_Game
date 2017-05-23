@@ -80,19 +80,7 @@ public class Program {
 			else
 				userExit = GC.ExitGame();
 		}while (!userExit && !GC.gameOver());
-		if (GC.gameOver()){
-			Player[] players = GC.game.getPlayers();
-			ConsoleGameView.ShowGameBoard(GC);
-			System.out.println("\nGame is finished.\n");
-			for (Player player : players)
-				System.out.println("Player " + player.getName() + " final score " + player.GetScore());
-			System.out.println("\nPress enter to return to Main Menu...");
-			try {
-				System.in.read();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}	
+		gameOver();
 	}
 	
 	private static void playSingleGame(){
@@ -122,6 +110,10 @@ public class Program {
 			else
 				userExit = GC.ExitGame();
 		}while (!userExit && !GC.gameOver());
+		gameOver();
+	}
+	
+	private static void gameOver(){
 		if (GC.gameOver()){
 			Player[] players = GC.game.getPlayers();
 			ConsoleGameView.ShowGameBoard(GC);
