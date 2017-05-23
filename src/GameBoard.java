@@ -41,7 +41,6 @@ public class GameBoard {
             for (int y = 0; y < size; y++)
             {
             	gameBoard[x][y] = new Cell(savedCells[x][y].getValue());
-            	//gameBoard[x][y].setColor(savedCells[x][y].getValue());
             }
         }
     }

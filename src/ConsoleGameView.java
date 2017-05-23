@@ -121,23 +121,14 @@ public class ConsoleGameView {
 	public static String GetMoveInput(Player player) {
 		String userString = null;
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		
-		//Scanner scanner = new Scanner(System.in);
+
 		do 
 		{
 			System.out.println("");
-			System.out.print(player.name + " please enter move (e.g 5C): ");
+			System.out.print("[X to Save/Exit] " + player.name + "'s move(e.g 5C): ");
 
 			try {
 				userString = reader.readLine();
-			//	if (userString.length() != 2)
-			//		System.out.println("Input must be two characters long");
-			//	else
-			//	{
-					
-			//	}
-					
-				//userString = scanner.nextLine();
 			}
 			catch (Exception e) 
 			{
@@ -145,8 +136,7 @@ public class ConsoleGameView {
 			}
 			
 			
-		} while (!userString.toUpperCase().equals("X") & userString.length() != 2);
-		//scanner.close();
+		} while (!userString.toUpperCase().equals("X") & userString.length() > 3);
 		return userString;
 	}
 }
